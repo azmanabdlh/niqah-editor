@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace NIQAHEditor\Commands;
 
 use Illuminate\Console\Command;
 

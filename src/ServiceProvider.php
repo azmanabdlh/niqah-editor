@@ -2,9 +2,9 @@
 
 namespace NIQAHEditor;
 
+use NIQAHEditor\Commands\SkeletonCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
 
 class ServiceProvider extends PackageServiceProvider
 {
