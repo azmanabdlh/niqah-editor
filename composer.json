@@ -1,24 +1,25 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "azmanabdlh/niqah-editor",
+    "description": "Engine editor by NIQAH",
     "keywords": [
-        ":vendor_name",
+        "niqah-editor",
         "laravel",
-        ":package_slug"
+        "page-builder",
+        "niqah"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/azmanabdlh/niqah-editor",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": ":azmanabdlh",
+            "email": "azmanabdlh12@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.4",
         "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^11.0||^12.0||^13.0"
+        "illuminate/view": "^11.0||^12.0||^13.0"        
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -35,14 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "NIQAHEditor\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
+            "NIQAHEditor\\Tests\\": "tests/"
         }
     },
     "scripts": {
