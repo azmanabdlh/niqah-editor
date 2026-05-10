@@ -1,1 +1,0 @@
-<h1> {{ $name }} Component </h1>
