@@ -13,14 +13,18 @@ class EditorController extends Controller
     public function submit(Request $request)
     {
       
-      if ($request->ajax()) {
-        return Response::json([]);
+      if (!$request->ajax()) {
+        return Response::json([
+          'success' => false,
+          'message' => 'Invalid request',
+        ], 400);
       }
 
       
       $this->validate($request, [
         'version' => 'required|string',
-        'activeComponents' => 'required|array'
+        'activeComponents' => 'required|array',
+        'action' => 'required|string'
       ]);
       
       // TODO:
@@ -28,9 +32,12 @@ class EditorController extends Controller
       // 2. Validate block format
       // 3. Validate version
       RequestSubmitted::dispatch(
-        $request->all('version', 'activeComponents')
+        $request->all('version', 'activeComponents', 'action')
       );
       
-      return Response::json([]);
+      return Response::json([
+        'success' => true,
+        'message' => 'Request submitted successfully',
+      ], 200);
     }
 }

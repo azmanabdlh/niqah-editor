@@ -21,9 +21,10 @@ class ServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('niqah-editor')
-            // ->hasConfigFile()
-            // ->hasViews()
+            ->name('niqah_editor')
+            ->hasConfigFile('niqah-editor')
+            ->hasViews(__DIR__ . '/resources/views')
+            ->hasRoutes(__DIR__ . '/routes/web.php')
             ->hasCommand(SkeletonCommand::class);
     }
 

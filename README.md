@@ -15,7 +15,7 @@ composer require azmanabdlh/niqah-editor
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="niqah-editor-config"
+php artisan vendor:publish --tag="niqah_editor-config"
 ```
 
 This is the contents of the published config file:
@@ -26,11 +26,13 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="niqah-editor-views"
+You can publish and run the migrations with:
+```php
+php artisan vendor:publish --tag="niqah_editor-migrations"
+php artisan migrate
 ```
+
+
 
 ## Usage
 
@@ -52,7 +54,7 @@ Engine::editor('1.0.0')->toJSON();
 //     "blockComponents": [
 //         {
 //             "name": "Hero",
-//             "description": "Bagian full-width di bagian atas situs yang berisi proposisi nilai (judul), deskripsi singkat, dan poin interaksi utama",
+//             "description": "example..",
 //             "blockComponent": {
 //                 "id": "none",
 //                 "node": "div",
@@ -72,13 +74,52 @@ Alternatively, you can retrieve active components from a specific Page in the da
 ```php
 <?php
 
+// app/Http/Controllers/PageController.php
 use App\Models\Page;
 
-
-// example...
 $activeComponents = Page::find(1)->blockComponents();
 
 Engine::editor('1.0.0', $activeComponents)->toJSON();
+
+
+
+// app/Model/BlockComponent.php
+use Illuminate\Database\Eloquent\Model;
+use NIQAHEditor\InteractsWithComponent;
+use NIQAHEditor\View\Components\Hero;
+
+class BlockComponent extends Model
+{
+  use InteractsWithComponent;
+}
+
+
+$blockComponent = BlockComponent::random();
+// or
+$blockComponent = BlockComponent::findByClassName(Hero::class);
+
+$blockComponent->isLive();
+// Output
+// true
+
+$blockComponent->data;
+// Output
+//   [
+//         {
+//             "name": "Hero",
+//             "description": "example..",
+//             "blockComponent": {
+//                 "id": "none",
+//                 "node": "div",
+//                 "type": "__Container",
+//                 "attributes": [],
+//                 "children": []
+//             },
+//             "thumbnail": "example.com/hero.jpg"
+//         },
+//        {..}
+//     ]
+
 
 ```
 
