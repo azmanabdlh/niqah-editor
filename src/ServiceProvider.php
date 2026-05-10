@@ -8,6 +8,7 @@ use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 use NIQAHEditor\Commands\SkeletonCommand;
+use NIQAHEditor\View\Components\Hero;
 
 class ServiceProvider extends PackageServiceProvider
 {
@@ -26,12 +27,20 @@ class ServiceProvider extends PackageServiceProvider
     }
 
     
-    public function bootingPackage()
+    public function registeringPackage()
     {
-        // TODO: Add Blade directive
-        // Blade::directive('NIQAHeditor', function ($expression) {
-            // return Facade::editor($version, $activeComponents)->render();
-        // });
+        
+        $this->app->bind(Engine::class, function () {
+            return (new Engine())->adoptComponents($this->blockComponents());
+        });
+    }
+
+    
+    protected function blockComponents(): array
+    {
+        return [
+            Hero::class,
+        ];
     }
 
 }

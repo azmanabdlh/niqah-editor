@@ -10,9 +10,14 @@ class Engine
   protected array $blockComponents = [];
   
   // Register a block component
-  public function registerComponent(BlockComponent $component): void
+  public function registerComponent(string $component): void
   {
-    $this->blockComponents[$component->name] = $component;
+    $this->blockComponents[] = $component;
+  }
+
+  public function adoptComponents(array $components): void
+  {
+    $this->blockComponents = $components;
   }
 
   public function components(): array
