@@ -3,6 +3,7 @@
 namespace NIQAHEditor\View;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Collection;
 
 class Editor extends Component
 {
@@ -24,7 +25,7 @@ class Editor extends Component
         return view('editor', $this->toArray());
     }
     
-
+    
     public function toJSON(): string
     {
         return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
@@ -35,7 +36,7 @@ class Editor extends Component
         return [
             'version' => $this->version,
             'activeComponents' => $this->activeComponents,
-            'blockComponents' => $this->blockComponents,
+            'blockComponents' => array_map(fn(BlockComponent $component) => $component->toArray(), $this->blockComponents)
         ];
     }
 }

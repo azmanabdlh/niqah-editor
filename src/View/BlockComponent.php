@@ -2,10 +2,7 @@
 
 namespace NIQAHEditor\View;
 
-use Illuminate\View\Component;
-
-
-abstract class BlockComponent extends Component
+abstract class BlockComponent
 {
     public string $name;
 
@@ -16,11 +13,18 @@ abstract class BlockComponent extends Component
     
     abstract public function thumbnail(): string;
 
-
-    public function render()
+    public function toJSON(): string 
     {
-        return view('component', [
+        return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    public function toArray(): array 
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
             'blockComponent' => $this->block()->toArray(),
-        ]);
+            'thumbnail' => $this->thumbnail(),
+        ];
     }
 }

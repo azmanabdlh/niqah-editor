@@ -5,7 +5,7 @@ namespace NIQAHEditor\View;
 class Block 
 {
   public function __construct(
-    public string $id = '',
+    public string $id,
     public string $node,
     public string $type,    
     public array $attributes = [],
@@ -27,11 +27,11 @@ class Block
     
 
     return [
-      'id' => $this->id || "none",
+      'id' => $this->id ?: 'none',
       'node' => $this->node,
       'type' => $this->type,
-      'attributes' => $this->attributes,
-      'children' => $this->children,
+      'attributes' => $this->attributes ?: [],
+      'children' => $this->children ?: [],
     ];
   }
 
@@ -47,10 +47,10 @@ class Block
       return;
     }
     
-    $this->id = $data['id'] || 'none';
+    $this->id = $data['id'];;
     $this->node = $data['node'];
     $this->type = $data['type'];
-    $this->attributes = $data['attributes'] ?: [];
-    $this->children = $data['children'] ?: [];
+    $this->attributes = $data['attributes'];
+    $this->children = $data['children'];
   }
 }

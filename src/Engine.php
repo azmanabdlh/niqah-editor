@@ -31,7 +31,17 @@ class Engine
     return new Editor(
       $version,
       $activeComponents,
-      $this->components(),
+      $this->resolveBlockComponents(),      
     );
+  }
+
+  private function resolveBlockComponents(): array 
+  {
+    $components = [];
+    foreach ($this->blockComponents as $component) {
+      $components[] = new $component();
+    }
+    
+    return $components;
   }
 }

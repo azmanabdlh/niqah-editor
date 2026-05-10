@@ -9,6 +9,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 use NIQAHEditor\Commands\SkeletonCommand;
 use NIQAHEditor\View\Components\Hero;
+use Override;
 
 class ServiceProvider extends PackageServiceProvider
 {
@@ -21,16 +22,16 @@ class ServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('niqah-editor')
-            ->hasConfigFile()
-            ->hasViews()
+            // ->hasConfigFile()
+            // ->hasViews()
             ->hasCommand(SkeletonCommand::class);
     }
 
-    
+
+    #[Override]
     public function registeringPackage()
-    {
-        
-        $this->app->bind(Engine::class, function () {
+    {        
+        $this->app->singleton("niqah-editor", function () {
             return (new Engine())->adoptComponents($this->blockComponents());
         });
     }
