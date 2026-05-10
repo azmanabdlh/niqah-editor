@@ -11,13 +11,19 @@ class Hero extends BlockComponent
 
     public string $description = "";
 
+    public function thumbnail(): string 
+    {
+        return "";
+    }
+
     public function block(): Block 
     {
         return new Block(
             id: "",
             node: 'div',
+            type: '__Container',
             attributes: [],
-            block: null,
+            children: [],
         );
     }
 }

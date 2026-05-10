@@ -7,8 +7,9 @@ class Block
   public function __construct(
     public string $id = '',
     public string $node,
+    public string $type,    
     public array $attributes = [],
-    public ?Block $block = null,
+    public array $children = [],
   )
   {
     
@@ -23,16 +24,33 @@ class Block
       return [];
     }
 
+    
+
     return [
       'id' => $this->id || "none",
       'node' => $this->node,
+      'type' => $this->type,
       'attributes' => $this->attributes,
-      'block' => $this->block->toArray() || [],
+      'children' => $this->children,
     ];
   }
 
   public function toJSON(): string 
   {
     return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+  }
+
+  public function fromJSON(string $json): void {
+    $data = json_decode($json, true);
+    
+    if (!is_array($data)) {
+      return;
+    }
+    
+    $this->id = $data['id'] || 'none';
+    $this->node = $data['node'];
+    $this->type = $data['type'];
+    $this->attributes = $data['attributes'] ?: [];
+    $this->children = $data['children'] ?: [];
   }
 }

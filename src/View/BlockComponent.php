@@ -14,11 +14,13 @@ abstract class BlockComponent extends Component
     // Define the block definition for this schema.
     abstract public function block(): Block;
     
+    abstract public function thumbnail(): string;
+
 
     public function render()
     {
         return view('component', [
-            'block' => $this->block()->toArray(),
+            'blockComponent' => $this->block()->toArray(),
         ]);
     }
 }

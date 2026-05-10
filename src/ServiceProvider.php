@@ -2,9 +2,12 @@
 
 namespace NIQAHEditor;
 
-use NIQAHEditor\Commands\SkeletonCommand;
+
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+
+use NIQAHEditor\Commands\SkeletonCommand;
 
 class ServiceProvider extends PackageServiceProvider
 {
@@ -21,4 +24,17 @@ class ServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->hasCommand(SkeletonCommand::class);
     }
+
+    
+    public function bootingPackage()
+    {
+        // TODO: Add Blade directive
+        // Blade::directive('NIQAHeditor', function ($expression) {
+            // return Facade::editor($version, $activeComponents)->render();
+        // });
+    }
+
 }
+
+
+
