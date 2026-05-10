@@ -104,21 +104,15 @@ $blockComponent->isLive();
 
 $blockComponent->data;
 // Output
-//   [
-//         {
-//             "name": "Hero",
-//             "description": "example..",
-//             "blockComponent": {
-//                 "id": "none",
-//                 "node": "div",
-//                 "type": "__Container",
-//                 "attributes": [],
-//                 "children": []
-//             },
-//             "thumbnail": "example.com/hero.jpg"
-//         },
-//        {..}
-//     ]
+// [
+//   {
+//     "id": "none",
+//     "node": "div",
+//     "type": "__Container",
+//     "attributes": [],
+//     "children": []
+//   }
+// ]
 
 
 ```
