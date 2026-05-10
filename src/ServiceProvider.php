@@ -32,7 +32,10 @@ class ServiceProvider extends PackageServiceProvider
     public function registeringPackage()
     {        
         $this->app->singleton("niqah-editor", function () {
-            return (new Engine())->adoptComponents($this->blockComponents());
+            $niqah = new Engine();
+            $niqah->adoptComponents($this->blockComponents());
+
+            return $niqah;
         });
     }
 

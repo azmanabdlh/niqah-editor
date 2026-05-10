@@ -8,10 +8,27 @@ abstract class BlockComponent
 
     public string $description;
 
-    // Define the block definition for this schema.
-    abstract public function block(): Block;
+    public function __construct(
+        private ?Block $block
+    )
+    {
+        
+    }
+
+    // Define the default block component.
+    abstract public function defaultBlock(): Block;
     
     abstract public function thumbnail(): string;
+    
+    public function modelClassName(): string 
+    {
+        return get_class($this);
+    }
+
+    public function block(): Block
+    {
+        return $this->block ?: $this->defaultBlock();
+    }
 
     public function toJSON(): string 
     {
@@ -23,8 +40,9 @@ abstract class BlockComponent
         return [
             'name' => $this->name,
             'description' => $this->description,
-            'blockComponent' => $this->block()->toArray(),
+            'blocks' => $this->block()->toArray(),
             'thumbnail' => $this->thumbnail(),
+            '__ClassName' => $this->modelClassName(),
         ];
     }
 }

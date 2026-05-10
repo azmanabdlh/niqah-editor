@@ -10,6 +10,7 @@ use NIQAHEditor\ServiceProvider;
 use NIQAHEditor\Engine;
 
 
+
 $app = new Container();
 Facade::setFacadeApplication($app);
 
@@ -26,8 +27,7 @@ $provider->register();
 $provider->boot();
 
 
-var_dump($app->make('niqah')->editor('1.0.0')->toJSON());
-
+var_dump($app->make('niqah')->editor('1.0.0', '[]')?->toJSON());
 
 // Engine::editor('1.0.0')->toJSON();
 // Output

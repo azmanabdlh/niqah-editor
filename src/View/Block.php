@@ -15,17 +15,9 @@ class Block
     
   }
 
+ 
   public function toArray(): array
   {
-
-    if ($this->node
-    |> trim(...)
-    |> (fn($str) => empty($str))) {
-      return [];
-    }
-
-    
-
     return [
       'id' => $this->id ?: 'none',
       'node' => $this->node,
@@ -35,22 +27,28 @@ class Block
     ];
   }
 
+  public function isValid(): bool 
+  {
+    return $this->node
+    |> trim(...)
+    |> (fn($str) => empty($str)) != '';
+  }
+
   public function toJSON(): string 
   {
     return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
   }
 
-  public function fromJSON(string $json): void {
-    $data = json_decode($json, true);
+  public static function fromJSON(string $blockRaw): self {
+    $data = json_decode($blockRaw, true);
     
-    if (!is_array($data)) {
-      return;
-    }
-    
-    $this->id = $data['id'];;
-    $this->node = $data['node'];
-    $this->type = $data['type'];
-    $this->attributes = $data['attributes'];
-    $this->children = $data['children'];
+    return new Block(
+      $data['id'],
+      $data['node'],
+      $data['type'],
+      $data['attributes'],
+      $data['children']
+    );
   }
+
 }
