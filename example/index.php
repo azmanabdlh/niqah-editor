@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/bootstrap.php';
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/bootstrap.php';
 
 // var_dump($app->make('niqah')->editor('1.0.0', '[]')?->toJSON());
 // or
@@ -29,5 +29,3 @@ echo $app->make('niqah')->editor('1.0.0', '[]')?->render()->toHTML();
 //         }
 //     ]
 // }
-
-

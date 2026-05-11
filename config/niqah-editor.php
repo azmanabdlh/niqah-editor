@@ -3,8 +3,7 @@
 return [
     'middleware' => ['web'],
 
-    
     'blocks' => [
-        'threshold' => 30 
-    ]
+        'threshold' => 30,
+    ],
 ];

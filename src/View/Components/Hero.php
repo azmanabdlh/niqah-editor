@@ -11,16 +11,15 @@ class Hero extends BlockComponent
 
     public string $description = 'Bagian full-width di bagian atas situs yang berisi proposisi nilai (judul), deskripsi singkat, dan poin interaksi utama';
 
-
-    public function thumbnail(): string 
+    public function thumbnail(): string
     {
-        return "";
+        return '';
     }
 
-    public function defaultBlock(): Block 
+    public function defaultBlock(): Block
     {
         return new Block(
-            id: "",
+            id: '',
             node: 'div',
             type: '__Container',
             attributes: [],

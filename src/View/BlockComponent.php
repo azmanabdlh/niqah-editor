@@ -10,17 +10,14 @@ abstract class BlockComponent
 
     public function __construct(
         private ?Block $block
-    )
-    {
-        
-    }
+    ) {}
 
     // Define the default block component.
     abstract public function defaultBlock(): Block;
-    
+
     abstract public function thumbnail(): string;
-    
-    public function modelClassName(): string 
+
+    public function modelClassName(): string
     {
         return get_class($this);
     }
@@ -30,12 +27,12 @@ abstract class BlockComponent
         return $this->block ?: $this->defaultBlock();
     }
 
-    public function toJSON(): string 
+    public function toJSON(): string
     {
         return json_encode($this->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    public function toArray(): array 
+    public function toArray(): array
     {
         return [
             'name' => $this->name,

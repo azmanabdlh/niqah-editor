@@ -1,65 +1,56 @@
 <?php
 
-use Illuminate\Container\Container;
+use Illuminate\Config\Repository;
+use Illuminate\Events\EventServiceProvider;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Config\Repository;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\FileViewFinder;
-use Illuminate\View\ViewServiceProvider;
-use Illuminate\Events\EventServiceProvider;
+use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\ComponentAttributeBag;
-
-
-use NIQAHEditor\View\Components\Hero;
-use NIQAHEditor\ServiceProvider;
+use Illuminate\View\Factory;
+use Illuminate\View\ViewServiceProvider;
 use NIQAHEditor\Engine;
+use NIQAHEditor\ServiceProvider;
+use NIQAHEditor\View\Components\Hero;
 
-
-
-$app = new Application(realpath(__DIR__ . '/..'));
+$app = new Application(realpath(__DIR__.'/..'));
 Facade::setFacadeApplication($app);
 
-
 $app->singleton('files', function () {
-    return new Filesystem();
+    return new Filesystem;
 });
-
 
 $app->singleton('config', function () {
     return new Repository([
         'view' => [
             'paths' => [
-                realpath(__DIR__ . '/../resources/views')
+                realpath(__DIR__.'/../resources/views'),
             ],
-            'compiled' => realpath(__DIR__ . '/../storage/framework/views')
+            'compiled' => realpath(__DIR__.'/../storage/framework/views'),
         ],
     ]);
 });
 
-
-$app->alias('view', \Illuminate\View\Factory::class);
+$app->alias('view', Factory::class);
 
 $app->singleton('blade.compiler', function () use ($app) {
-    return new \Illuminate\View\Compilers\BladeCompiler(
-        $app['files'], 
+    return new BladeCompiler(
+        $app['files'],
         $app['config']['view.compiled']
     );
 });
 
-
 $app->bind('Illuminate\View\ComponentAttributeBag', function () {
-    return new ComponentAttributeBag();
+    return new ComponentAttributeBag;
 });
-
 
 $app->register(EventServiceProvider::class);
 $app->register(ViewServiceProvider::class);
 
-
 $app->bind('niqah', function () {
-    $engine = new Engine();
+    $engine = new Engine;
     $engine->registerComponent(Hero::class);
+
     return $engine;
 });
 

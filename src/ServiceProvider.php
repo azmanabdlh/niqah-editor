@@ -2,14 +2,11 @@
 
 namespace NIQAHEditor;
 
-
-use Illuminate\Support\Facades\Blade;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-
 use NIQAHEditor\Commands\SkeletonCommand;
 use NIQAHEditor\View\Components\Hero;
 use Override;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class ServiceProvider extends PackageServiceProvider
 {
@@ -28,19 +25,17 @@ class ServiceProvider extends PackageServiceProvider
             ->hasCommand(SkeletonCommand::class);
     }
 
-
     #[Override]
     public function registeringPackage()
-    {        
-        $this->app->singleton("niqah-editor", function () {
-            $niqah = new Engine();
+    {
+        $this->app->singleton('niqah-editor', function () {
+            $niqah = new Engine;
             $niqah->adoptComponents($this->blockComponents());
 
             return $niqah;
         });
     }
 
-    
     protected function blockComponents(): array
     {
         return [
@@ -48,6 +43,3 @@ class ServiceProvider extends PackageServiceProvider
         ];
     }
 }
-
-
-
