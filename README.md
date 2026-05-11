@@ -21,9 +21,15 @@ php artisan vendor:publish --tag="niqah_editor-config"
 This is the contents of the published config file:
 
 ```php
+<?php
 return [
-  // ...
+    'middleware' => ['web'],
+
+    'blocks' => [
+        'threshold' => 30,
+    ],
 ];
+
 ```
 
 You can publish and run the migrations with:
@@ -31,7 +37,6 @@ You can publish and run the migrations with:
 php artisan vendor:publish --tag="niqah_editor-migrations"
 php artisan migrate
 ```
-
 
 
 ## Usage
@@ -80,14 +85,6 @@ $activeComponents = \App\Models\Page::find(1)->blockComponents();
 Engine::editor('1.0.0', $activeComponents)->toJSON();
 
 
-
-// app/Model/BlockComponent.php
-class BlockComponent extends Model
-{
-  use InteractsWithComponent;
-}
-
-
 $blockComponent = BlockComponent::random();
 // or
 $blockComponent = BlockComponent::findByClassName(Hero::class);
@@ -117,15 +114,11 @@ Alternatively, you can register and integrate additional component classes for u
 // app/Http/Controllers/PageController.php
 
 
-// BlockComponent::all()->toComponent();
-// or
-$widgets = \App\Models\Widget::all();
-
 Engine::adoptComponents(
-  $this->parseToBlockComponents($widgets)
+  BlockComponent::all()->toComponent()
 );
 
-Engine::editor('1.0.0');
+Engine::editor('1.0.0')->toJSON();
 
 ```
 
@@ -147,9 +140,9 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
-## Credits
 
-- [Azman Abdlh](https://github.com/azmanabdlh)
+## Credits
+![logo.png](logo.png)
 
 ## License
 
