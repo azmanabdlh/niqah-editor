@@ -39,7 +39,8 @@ class ServiceProvider extends PackageServiceProvider
     protected function blockComponents(): array
     {
         return [
-            Hero::class,
+            new Hero,
+            // ...
         ];
     }
 }

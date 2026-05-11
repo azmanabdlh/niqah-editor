@@ -4,20 +4,17 @@ namespace NIQAHEditor;
 
 use Illuminate\Support\Collection;
 use NIQAHEditor\View\Block;
+use NIQAHEditor\View\BlockComponent;
 use RuntimeException;
 
 class BlockComponentResolver
 {
     protected array $blockComponents = [];
 
-    public function __construct(
-        protected string $blockComponentsRaw,
-    ) {}
-
-    public function isValid(): bool
+    public function isValid(string $blockComponentsRaw): bool
     {
         try {
-            $this->resolve();
+            $this->resolve($blockComponentsRaw);
 
             return true;
         } catch (\Exception $e) {
@@ -25,37 +22,45 @@ class BlockComponentResolver
         }
     }
 
-    public function resolve()
+    public function makeBlockComponent(string $klass): BlockComponent
+    {
+        if (! class_exists($klass)) {
+            throw new RuntimeException('Not found BlockComponent '.$klass);
+        }
+
+        return new $klass;
+    }
+
+    public function resolve(string $blockComponentsRaw): array
     {
 
-        $blockComponentsRaw = json_decode($this->blockComponentsRaw, true);
+        $blockComponents = json_decode($blockComponentsRaw, true);
 
-        if (! is_array($blockComponentsRaw)) {
+        if (! is_array($blockComponents)) {
             throw new RuntimeException('Invalid block components raw value');
         }
 
-        if (count($blockComponentsRaw) == 0) {
+        if (count($blockComponents) == 0) {
             return [];
         }
 
-        $blockComponents = Collection::make($blockComponentsRaw)->map(function ($component) {
+        return Collection::make($blockComponents)->map(function ($component) {
             $block = $this->makeBlock($component['blocks']);
             if (! is_null($block) && ! $block->isValid()) {
                 throw new RuntimeException('Invalid block raw value');
             }
 
-            if (class_exists($klass = $component['__ClassName'])) {
-                return new $klass($block);
-            }
+            $klass = $this->makeBlockComponent($component['__ClassName']);
 
-            // Log::info()
-            throw new RuntimeException('Not found BlockComponent '.$klass);
-        });
-
-        return $blockComponents->toArray();
+            return $klass
+                ->setName($component['name'])
+                ->setDescription($component['description'])
+                ->setThumbnail($component['thumbnail'])
+                ->setBlock($block);
+        })->toArray();
     }
 
-    private function makeBlock(string $blockRaw): ?Block
+    public function makeBlock(string $blockRaw): ?Block
     {
         if (empty($blockRaw)) {
             return null;
