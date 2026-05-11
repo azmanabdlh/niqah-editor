@@ -3,8 +3,8 @@
 namespace NIQAHEditor;
 
 use NIQAHEditor\View\Block;
-use NIQAHEditor\View\Editor;
 use NIQAHEditor\View\BlockComponent;
+use NIQAHEditor\View\Editor;
 
 class Engine
 {
