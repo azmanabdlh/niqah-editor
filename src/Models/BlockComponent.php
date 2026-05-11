@@ -5,7 +5,7 @@ namespace NIQAHEditor\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use NIQAHEditor\Models\Concerns\InteractsWithComponent;
-use NIQAHEditor\Models\Concerns\MacroableComponent;
+use NIQAHEditor\Models\Concerns\HasScopeComponent;
 
 #[Fillable(
     'name',
@@ -16,5 +16,5 @@ use NIQAHEditor\Models\Concerns\MacroableComponent;
 )]
 class BlockComponent extends Model
 {
-    use InteractsWithComponent, MacroableComponent;
+    use InteractsWithComponent, HasScopeComponent;
 }
