@@ -2,16 +2,14 @@
 
 namespace NIQAHEditor;
 
-use RuntimeException;
-
 use Illuminate\Support\Collection;
 use NIQAHEditor\View\Block;
 use NIQAHEditor\View\BlockComponent;
+use RuntimeException;
 
 class BlockComponentResolver
 {
     protected array $blockComponents = [];
-
 
     public function isValid(string $blockComponentsRaw): bool
     {
@@ -26,11 +24,11 @@ class BlockComponentResolver
 
     public function makeBlockComponent(string $klass): BlockComponent
     {
-        if (!class_exists($klass)) {
+        if (! class_exists($klass)) {
             throw new RuntimeException('Not found BlockComponent '.$klass);
         }
 
-        return (new $klass);
+        return new $klass;
     }
 
     public function resolve(string $blockComponentsRaw): array
@@ -67,7 +65,6 @@ class BlockComponentResolver
         if (empty($blockRaw)) {
             return null;
         }
-
 
         return Block::fromJSON($blockRaw);
     }

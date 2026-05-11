@@ -4,17 +4,16 @@ namespace NIQAHEditor\Models\Concerns;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
-use NIQAHEditor\View\Block;
 use NIQAHEditor\BlockComponentResolver;
+use NIQAHEditor\View\Block;
 
 class AsBlockObject implements CastsAttributes
 {
-
     private BlockComponentResolver $resolver;
 
     public function __construct()
     {
-        $this->resolver = new BlockComponentResolver();
+        $this->resolver = new BlockComponentResolver;
     }
 
     public function get(
@@ -44,11 +43,11 @@ class AsBlockObject implements CastsAttributes
         mixed $value,
         array $attributes,
     ): string {
-        $block = $this->resolver->makeBlock((string)$value);
+        $block = $this->resolver->makeBlock((string) $value);
         if (is_null($block)) {
             throw new \Error('Invalid block JSON');
         }
-        
+
         return $block->toJSON();
     }
 }

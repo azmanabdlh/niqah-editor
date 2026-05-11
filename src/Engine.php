@@ -81,9 +81,9 @@ class Engine
      *
      * @param  string  $raw  The raw string to resolve.
      * @return array The resolved block components.
-     */ 
+     */
     private function resolveBlockComponents(string $raw): array
     {
-        return (new BlockComponentResolver())->resolve($raw);
+        return (new BlockComponentResolver)->resolve($raw);
     }
 }
