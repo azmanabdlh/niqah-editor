@@ -44,18 +44,21 @@ abstract class BlockComponent
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
     public function setThumbnail(string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+
         return $this;
     }
 }
