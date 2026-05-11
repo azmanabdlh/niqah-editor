@@ -40,8 +40,9 @@ php artisan migrate
 <?php
 
 use NIQAHEditor\Facades\Engine;
+use NIQAHEditor\View\Components\Hero;
 
-Engine::registerComponent(\NIQAHEditor\View\Components\Hero::class);
+Engine::registerComponent(new Hero());
 
 
 Engine::editor('1.0.0')->toJSON();
@@ -113,7 +114,7 @@ Alternatively, you can register and integrate additional component classes for u
 
 ```php
 <?php
-
+// app/Http/Controllers/PageController.php
 $widgets = \App\Models\Widget::all();
 
 Engine::adoptComponents(

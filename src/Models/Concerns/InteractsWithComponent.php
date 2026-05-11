@@ -4,6 +4,7 @@ namespace NIQAHEditor\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Scope;
 
 /**
  * @property string $data
@@ -22,14 +23,15 @@ trait InteractsWithComponent
         );
     }
 
+    #[Scope]
+    public function findByClassName(Builder $query, string $className)
+    {
+        return $query->where(self::CLASS_NAME, $className);
+    }
+
     public function getClassName(): string
     {
         return $this->attributes[self::CLASS_NAME];
-    }
-
-    public function scopeFindByClassName(Builder $query, string $className)
-    {
-        return $query->where(self::CLASS_NAME, $className);
     }
 
     public function isLive(): bool
