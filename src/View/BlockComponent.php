@@ -8,6 +8,8 @@ abstract class BlockComponent
 
     public string $description;
 
+    public string $thumbnail;
+
     public function __construct(
         private ?Block $block
     ) {}
@@ -15,9 +17,7 @@ abstract class BlockComponent
     // Define the default block component.
     abstract public function defaultBlock(): Block;
 
-    abstract public function thumbnail(): string;
-
-    public function modelClassName(): string
+    public function getClassName(): string
     {
         return get_class($this);
     }
@@ -38,8 +38,26 @@ abstract class BlockComponent
             'name' => $this->name,
             'description' => $this->description,
             'blocks' => $this->block()->toArray(),
-            'thumbnail' => $this->thumbnail(),
-            '__ClassName' => $this->modelClassName(),
+            'thumbnail' => $this->thumbnail,
+            '__ClassName' => $this->getClassName(),
         ];
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setThumbnail(string $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
+        return $this;
     }
 }

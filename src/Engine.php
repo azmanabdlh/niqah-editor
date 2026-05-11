@@ -4,6 +4,7 @@ namespace NIQAHEditor;
 
 use NIQAHEditor\View\Block;
 use NIQAHEditor\View\Editor;
+use NIQAHEditor\View\BlockComponent;
 
 class Engine
 {
@@ -16,15 +17,15 @@ class Engine
      *
      * ```php
      * [
-     *   'Hero::class',
-     *   'Form::class',
+     *   new Hero(),
+     *   ...
      * ]
      * ```
      */
     protected array $blockComponents = [];
 
     // Register a block component
-    public function registerComponent(string $component): void
+    public function registerComponent(BlockComponent $component): void
     {
         $this->blockComponents[] = $component;
     }
@@ -46,7 +47,6 @@ class Engine
      * @param  string|array  $activeComponents  The active components in the editor.
      * @return Editor The editor instance.
      *
-     * @throws Throwable If an error occurs.
      *
      * example:
      * ```php
@@ -71,7 +71,7 @@ class Engine
         return new Editor(
             $version,
             $this->resolveBlockComponents($activeComponents),
-            $this->makeBlockComponents(),
+            $this->components(),
         );
 
     }
@@ -79,15 +79,5 @@ class Engine
     private function resolveBlockComponents(string $blockComponentsRaw): array
     {
         return (new BlockComponentResolver($blockComponentsRaw))->resolve();
-    }
-
-    private function makeBlockComponents(): array
-    {
-        $components = [];
-        foreach ($this->blockComponents as $component) {
-            $components[] = new $component(null);
-        }
-
-        return $components;
     }
 }
