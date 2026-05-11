@@ -22,9 +22,9 @@ class ServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('niqah_editor')
-            ->hasConfigFile('niqah-editor')
-            ->hasViews(__DIR__ . '/resources/views')
-            ->hasRoutes(__DIR__ . '/routes/web.php')
+            ->hasConfigFile()
+            ->hasViews()
+            ->hasRoutes('web')
             ->hasCommand(SkeletonCommand::class);
     }
 
@@ -47,7 +47,6 @@ class ServiceProvider extends PackageServiceProvider
             Hero::class,
         ];
     }
-
 }
 
 

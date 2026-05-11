@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 
 class Editor extends Component
 {
+    const BLOCK_THRESHOLD = 30;
+
     public function __construct(
         protected string $version,
                 
@@ -36,7 +38,17 @@ class Editor extends Component
         return [
             'version' => $this->version,
             'activeComponents' => $this->activeComponents,
-            'blockComponents' => array_map(fn(BlockComponent $component) => $component->toArray(), $this->blockComponents)
+            'blockComponents' => $this->constructBlockComponents()
         ];
+    }
+
+    private function constructBlockComponents() : array
+    {
+        
+        return Collection::make($this->blockComponents)
+            ->map(fn(BlockComponent $component) => $component->toArray())
+            ->take(
+                config('niqah-editor.blocks.threshold', self::BLOCK_THRESHOLD)
+            )->toArray();
     }
 }

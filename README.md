@@ -40,10 +40,8 @@ php artisan migrate
 <?php
 
 use NIQAHEditor\Facades\Engine;
-use NIQAHEditor\View\Components\Hero;
 
-
-Engine::registerComponent(Hero::class);
+Engine::registerComponent(\NIQAHEditor\View\Components\Hero::class);
 
 
 Engine::editor('1.0.0')->toJSON();
@@ -75,19 +73,14 @@ Alternatively, you can retrieve active components from a specific Page in the da
 <?php
 
 // app/Http/Controllers/PageController.php
-use App\Models\Page;
 
-$activeComponents = Page::find(1)->blockComponents();
+$activeComponents = \App\Models\Page::find(1)->blockComponents();
 
 Engine::editor('1.0.0', $activeComponents)->toJSON();
 
 
 
 // app/Model/BlockComponent.php
-use Illuminate\Database\Eloquent\Model;
-use NIQAHEditor\InteractsWithComponent;
-use NIQAHEditor\View\Components\Hero;
-
 class BlockComponent extends Model
 {
   use InteractsWithComponent;
@@ -114,6 +107,20 @@ $blockComponent->data;
 //   }
 // ]
 
+
+```
+Alternatively, you can register and integrate additional component classes for use within the editor.
+
+```php
+<?php
+
+$widgets = \App\Models\Widget::all();
+
+Engine::adoptComponents(
+  $this->parseToBlockComponents($widgets)
+);
+
+Engine::editor('1.0.0');
 
 ```
 

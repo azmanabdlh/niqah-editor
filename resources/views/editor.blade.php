@@ -1,1 +1,1 @@
-<h1>NIQAH Editor</h1>
+<h1>NIQAH Editor {{ $version }}</h1>
