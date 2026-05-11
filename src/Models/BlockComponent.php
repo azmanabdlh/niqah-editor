@@ -13,7 +13,6 @@ use NIQAHEditor\Models\Concerns\InteractsWithComponent;
     'blocks',
     'className',
 )]
-
 class BlockComponent extends Model
 {
     use InteractsWithComponent;
