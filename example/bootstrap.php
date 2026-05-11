@@ -49,7 +49,7 @@ $app->register(ViewServiceProvider::class);
 
 $app->bind('niqah', function () {
     $engine = new Engine;
-    $engine->registerComponent(Hero::class);
+    $engine->registerComponent(new Hero);
 
     return $engine;
 });
