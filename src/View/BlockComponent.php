@@ -4,13 +4,13 @@ namespace NIQAHEditor\View;
 
 abstract class BlockComponent
 {
-    public string $name;
+    public string $name = '';
 
-    public string $description;
+    public string $description = '';
 
-    public string $thumbnail;
+    public string $thumbnail = '';
 
-    private ?Block $block;
+    private ?Block $block = null;
 
     // Define the default block component.
     abstract public function defaultBlock(): Block;
@@ -35,8 +35,8 @@ abstract class BlockComponent
         return [
             'name' => $this->name,
             'description' => $this->description,
-            'blocks' => $this->block()->toArray(),
             'thumbnail' => $this->thumbnail,
+            'blocks' => $this->block()->toArray(),
             '__ClassName' => $this->getClassName(),
         ];
     }
