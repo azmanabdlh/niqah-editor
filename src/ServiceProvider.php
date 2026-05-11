@@ -39,7 +39,7 @@ class ServiceProvider extends PackageServiceProvider
     protected function blockComponents(): array
     {
         return [
-            new Hero(null),
+            new Hero,
             // ...
         ];
     }

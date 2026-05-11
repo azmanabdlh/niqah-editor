@@ -115,6 +115,10 @@ Alternatively, you can register and integrate additional component classes for u
 ```php
 <?php
 // app/Http/Controllers/PageController.php
+
+
+// BlockComponent::all()->toComponent();
+// or
 $widgets = \App\Models\Widget::all();
 
 Engine::adoptComponents(
