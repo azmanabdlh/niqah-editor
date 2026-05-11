@@ -76,8 +76,14 @@ class Engine
 
     }
 
-    private function resolveBlockComponents(string $blockComponentsRaw): array
+    /**
+     * Resolve the block components from the raw string to an array of block components.
+     *
+     * @param  string  $raw  The raw string to resolve.
+     * @return array The resolved block components.
+     */ 
+    private function resolveBlockComponents(string $raw): array
     {
-        return (new BlockComponentResolver($blockComponentsRaw))->resolve();
+        return (new BlockComponentResolver())->resolve($raw);
     }
 }

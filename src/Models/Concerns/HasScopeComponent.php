@@ -5,20 +5,26 @@ namespace NIQAHEditor\Models\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use NIQAHEditor\BlockComponentResolver;
+use NIQAHEditor\View\Block;
 
 trait HasScopeComponent
 {
     #[Scope]
     public function toComponent(Builder $query)
     {
-        $query->get()->map(function (Model $model) {
-            $klass = new $model->getClassName($model->data);
+        $resolver = new BlockComponentResolver();
 
+        $query->get()->map(function (Model $model) use ($resolver) {
+    
+            $klass = $resolver->makeBlockComponent($model->getClassName());
+            
             return $klass
                 ->setName($model->name)
                 ->setDescription($model->description)
-                ->setThumbnail($model->thumbnail);
-
+                ->setThumbnail($model->thumbnail)
+                ->setBlock($model->data);
+                
         });
     }
 }

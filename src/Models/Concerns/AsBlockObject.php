@@ -5,9 +5,18 @@ namespace NIQAHEditor\Models\Concerns;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use NIQAHEditor\View\Block;
+use NIQAHEditor\BlockComponentResolver;
 
 class AsBlockObject implements CastsAttributes
 {
+
+    private BlockComponentResolver $resolver;
+
+    public function __construct()
+    {
+        $this->resolver = new BlockComponentResolver();
+    }
+
     public function get(
         Model $model,
         string $key,
@@ -15,7 +24,7 @@ class AsBlockObject implements CastsAttributes
         array $attributes,
     ): array {
 
-        return $this->makeBlock($value)->toArray();
+        return $this->resolver->makeBlock($value)->toArray();
     }
 
     /**
@@ -35,21 +44,11 @@ class AsBlockObject implements CastsAttributes
         mixed $value,
         array $attributes,
     ): string {
-
-        if (! is_string($value)) {
-            throw new \Error("Expected type 'string'. Found '".gettype($value)."'");
-        }
-
-        return $this->makeBlock($value)->toJSON();
-    }
-
-    private function makeBlock(string $value)
-    {
-        $block = Block::fromJSON($value);
-        if (! is_null($block) && ! $block->isValid()) {
+        $block = $this->resolver->makeBlock((string)$value);
+        if (is_null($block)) {
             throw new \Error('Invalid block JSON');
         }
-
-        return $block;
+        
+        return $block->toJSON();
     }
 }

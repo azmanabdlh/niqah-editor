@@ -10,10 +10,9 @@ abstract class BlockComponent
 
     public string $thumbnail;
 
-    public function __construct(
-        private ?Block $block
-    ) {}
+    private ?Block $block;
 
+    
     // Define the default block component.
     abstract public function defaultBlock(): Block;
 
@@ -46,21 +45,24 @@ abstract class BlockComponent
     public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
 
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 
     public function setThumbnail(string $thumbnail): self
     {
         $this->thumbnail = $thumbnail;
+        return $this;
+    }
 
+    public function setBlock(Block $block): self
+    {
+        $this->block = $block;
         return $this;
     }
 }
