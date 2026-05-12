@@ -51,7 +51,7 @@ use NIQAHEditor\Models\BlockComponent;
 Engine::registerComponent(new Hero());
 // or
 Engine::adoptComponents(
-  BlockComponent::all()->toComponent()
+  BlockComponent::all()->asComponent()
 );
 
 Engine::editor('1.0.0', activeComponent: '[]')->toJSON();

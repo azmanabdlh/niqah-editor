@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use NIQAHEditor\BlockComponentResolver;
 
-trait HasScopeComponent
+trait HasComponentResolver
 {
     #[Scope]
-    public function toComponent(Builder $query)
+    public function asComponent(Builder $query)
     {
         $resolver = new BlockComponentResolver;
 
