@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use NIQAHEditor\View\BlockComponent;
 use NIQAHEditor\Http\Controllers\BlockComponentController;
 
 $prefix = config('niqah-editor.prefix', 'editor');
