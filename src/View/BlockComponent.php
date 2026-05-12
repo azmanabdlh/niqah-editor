@@ -7,11 +7,10 @@ abstract class BlockComponent
     public string $name = '';
 
     public string $description = '';
-    
+
     public string $type = '';
 
     public string $thumbnail = '';
-
 
     private ?Block $block = null;
 
@@ -58,7 +57,7 @@ abstract class BlockComponent
         return $this;
     }
 
-     public function setType(string $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 

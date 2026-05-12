@@ -23,5 +23,4 @@ class Hero extends BlockComponent
             children: [],
         );
     }
-
 }
