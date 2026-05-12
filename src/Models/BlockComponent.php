@@ -9,6 +9,7 @@ use NIQAHEditor\Models\Concerns\InteractsWithComponent;
 
 #[Fillable(
     'name',
+    'type',
     'thumbnail',
     'description',
     'blocks',

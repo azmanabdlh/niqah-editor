@@ -20,6 +20,7 @@ trait HasComponentResolver
 
             return $klass
                 ->setName($model->name)
+                ->setType($model->type)
                 ->setDescription($model->description)
                 ->setThumbnail($model->thumbnail)
                 ->setBlock($model->data);
