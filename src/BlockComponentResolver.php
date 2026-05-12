@@ -54,6 +54,7 @@ class BlockComponentResolver
 
             return $klass
                 ->setName($component['name'])
+                ->setType($component['type'])
                 ->setDescription($component['description'])
                 ->setThumbnail($component['thumbnail'])
                 ->setBlock($block);

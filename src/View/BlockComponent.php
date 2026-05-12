@@ -7,13 +7,22 @@ abstract class BlockComponent
     public string $name = '';
 
     public string $description = '';
+    
+    public string $type = '';
 
     public string $thumbnail = '';
+
 
     private ?Block $block = null;
 
     // Define the default block component.
     abstract public function defaultBlock(): Block;
+
+    // Validate the block component.
+    public function validate(): bool
+    {
+        return true;
+    }
 
     public function getClassName(): string
     {
@@ -34,6 +43,7 @@ abstract class BlockComponent
     {
         return [
             'name' => $this->name,
+            'type' => $this->type,
             'description' => $this->description,
             'thumbnail' => $this->thumbnail,
             'blocks' => $this->block()->toArray(),
@@ -44,6 +54,13 @@ abstract class BlockComponent
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+     public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }
