@@ -16,10 +16,11 @@ class Hero extends BlockComponent
     public function defaultBlock(): Block
     {
         return new Block(
-            id: '',
-            node: 'div',
-            type: '__Container',
-            attributes: [],
+            id: '123',
+            node: 'section',
+            value: '',
+            type: '__Section',
+            props: [],
             children: [],
         );
     }
