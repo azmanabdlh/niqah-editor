@@ -1,0 +1,32 @@
+{
+  "name": "niqah-editor",
+  "version": "0.0.1",
+  "description": "Engine editor by NIQAH",
+  "keywords": [
+    "sass",
+    "editor",
+    "laravel"
+  ],
+  "homepage": "https://github.com/azmanabdlh/niqah-editor#readme",
+  "bugs": {
+    "url": "https://github.com/azmanabdlh/niqah-editor/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azmanabdlh/niqah-editor.git"
+  },
+  "license": "MIT",
+  "author": "niqah.id",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
