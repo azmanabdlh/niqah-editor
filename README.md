@@ -46,11 +46,15 @@ php artisan migrate
 
 use NIQAHEditor\Facades\Engine;
 use NIQAHEditor\View\Components\Hero;
+use NIQAHEditor\Models\BlockComponent;
 
 Engine::registerComponent(new Hero());
+// or
+Engine::adoptComponents(
+  BlockComponent::all()->toComponent()
+);
 
-
-Engine::editor('1.0.0')->toJSON();
+Engine::editor('1.0.0', activeComponent: '[]')->toJSON();
 // Output
 // {
 //     "version": "1.0.0",
@@ -70,56 +74,6 @@ Engine::editor('1.0.0')->toJSON();
 //         }
 //     ]
 // }
-
-```
-
-Alternatively, you can retrieve active components from a specific Page in the database to be rendered in the editor.
-
-```php
-<?php
-
-// app/Http/Controllers/PageController.php
-
-$activeComponents = \App\Models\Page::find(1)->blockComponents();
-
-Engine::editor('1.0.0', $activeComponents)->toJSON();
-
-
-$blockComponent = BlockComponent::random();
-// or
-$blockComponent = BlockComponent::findByClassName(Hero::class);
-
-$blockComponent->isLive();
-// Output
-// true
-
-$blockComponent->data;
-// Output
-// [
-//   {
-//     "id": "none",
-//     "node": "div",
-//     "type": "__Container",
-//     "attributes": [],
-//     "children": []
-//   }
-// ]
-
-
-```
-Alternatively, you can register and integrate additional component classes for use within the editor.
-
-```php
-<?php
-// app/Http/Controllers/PageController.php
-
-
-Engine::adoptComponents(
-  BlockComponent::all()->toComponent()
-);
-
-Engine::editor('1.0.0')->toJSON();
-
 ```
 
 ## Testing
