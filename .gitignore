@@ -32,3 +32,5 @@ testbench.yaml
 /coverage
 
 /storage
+*/.DS_Store
+.DS_Store
