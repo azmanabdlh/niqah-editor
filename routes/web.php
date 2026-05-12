@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use NIQAHEditor\Http\Controllers\EditorController;
+use NIQAHEditor\View\BlockComponent;
+use NIQAHEditor\Http\Controllers\BlockComponentController;
 
+$prefix = config('niqah-editor.prefix', 'editor');
 $middleware = config('niqah-editor.middleware', ['web']);
 
-Route::middleware($middleware)->group(function () {
-    Route::post('/niqah-editor/submit', [EditorController::class, 'submit']);
+Route::middleware($middleware)->prefix($prefix)->group(function () {
+    Route::post('/block-runtime/validate', [BlockComponentController::class, '__invoke']);
 });
