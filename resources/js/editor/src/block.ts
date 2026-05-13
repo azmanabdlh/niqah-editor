@@ -1,24 +1,30 @@
-interface BlockAttribute {
+interface BlockAttribute 
+{
   style: string;
   className: string;
   id: string;
 }
 
-interface ContainerAttribute extends BlockAttribute {
+interface ContainerAttribute extends BlockAttribute 
+{
 
 }
 
-type AttributeType = {
+
+
+type BlockTypeAttribute = {
   "__Container": ContainerAttribute;  
 }
 
-type AttributeSet = Partial<Record<keyof AttributeType[keyof AttributeType], string>>;
+export type BlockType = keyof BlockTypeAttribute
 
-class Block {
+export type AttributeSet = Partial<Record<keyof BlockType[keyof BlockType], string>>;
+
+export default class Block {
   id: number;
   name: string
   node: string;
-  type: keyof AttributeType;
+  type: keyof BlockType;
   attributes: AttributeSet;
   children: Block[];
 
@@ -26,7 +32,7 @@ class Block {
     id: number, 
     name: string, 
     node: string, 
-    type: keyof AttributeType, 
+    type: keyof BlockType, 
     attributes: AttributeSet,
     children: Block[]
   ) {
