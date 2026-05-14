@@ -2,6 +2,7 @@ import { BlockType, AttributeSet } from './block';
 import BlockComponent from './block-component';
 
 
+
 export interface CanvasContext {
   version: string;
   context: {
@@ -24,18 +25,18 @@ export type ActionHandler<T extends ActionKind> = (
 
 export type DispatchContext = {
   'block-component:add': BlockComponent;
-  'block-component:remove': string;
-  'block-component:update': { id: string; changes: Partial<BlockComponent> };
-  'block-component:selected': string;
-  'block-component:release': string | null;
-  'canvas:change': CanvasContext;
-  'canvas:clear': void;
-  'save:before': CanvasContext;
-  'save:after': unknown;
-  'publish:before': CanvasContext;
-  'publish:after': unknown;
+  'block-component:release': string;
+  'block-component:change': { id: string; changes: Partial<BlockComponent> };
+  'block-component:selected': string;  
+  
+  'save': CanvasContext;
+  'saved': unknown;
+  
+  'publish': CanvasContext;
+  'published': unknown;
+  
   'editor:ready': void;
-  'editor:destroy': void;
+  'editor:submit': CanvasContext
 };
   
 

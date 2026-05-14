@@ -10,15 +10,42 @@ interface ContainerAttribute extends BlockAttribute
 
 }
 
+interface TextAttribute extends BlockAttribute 
+{
+
+}
+
 
 
 type BlockTypeAttribute = {
-  "__Container": ContainerAttribute;  
+  __Container: ContainerAttribute; 
+  __Text: TextAttribute;
 }
 
 export type BlockType = keyof BlockTypeAttribute
 
 export type AttributeSet = Partial<Record<keyof BlockType[keyof BlockType], string>>;
+
+
+
+
+interface BlockBehavior {
+  init?: (element?: HTMLElement) => void;  
+};
+
+
+export interface TextBehavior extends BlockBehavior {
+  onChange?: (newText: string) => void;
+}
+
+export type BlockBehaviorContext = {
+  __Text: TextBehavior;
+}
+
+export type BlockBehaviorKind = keyof BlockBehaviorContext;
+
+
+
 
 export default class Block {
   id: number;
@@ -45,6 +72,3 @@ export default class Block {
   }
 
 }
-
-
-

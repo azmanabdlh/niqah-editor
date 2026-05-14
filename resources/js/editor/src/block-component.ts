@@ -26,4 +26,8 @@ export default class BlockComponent {
     this.blocks = blocks;
   }
 
+  static fromJSON(json: string): BlockComponent {
+    return JSON.parse(json) as BlockComponent;
+  }
+
 }
