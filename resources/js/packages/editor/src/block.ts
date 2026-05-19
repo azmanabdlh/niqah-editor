@@ -1,3 +1,9 @@
+export interface BlockContext<T extends BlockProps> {
+  value: any;
+  tagName: string; 
+  props: T;
+}
+
 export interface BlockProps
 {
   style: string;
@@ -5,14 +11,16 @@ export interface BlockProps
   id: string;
 }
 
-export interface ContainerProps extends BlockProps
+
+
+export interface SectionProps extends BlockProps
 {
 
 }
 
-export interface TextProps extends BlockProps
+export interface HeadingProps extends BlockProps
 {
-
+  
 }
 
 export interface ImageProps extends BlockProps
@@ -24,8 +32,8 @@ export interface ImageProps extends BlockProps
 
 
 type BlockTypeProps = {
-  __Container: ContainerProps; 
-  __Text: TextProps;
+  __Section: SectionProps; 
+  __Heading: HeadingProps;
 }
 
 export type BlockType = keyof BlockTypeProps
@@ -37,21 +45,24 @@ export default class Block {
   id: number;
   name: string
   node: string;
-  type: keyof BlockType;
+  type: BlockType;
   props: Props;
+  value: any;
   children: Block[];
 
   constructor(
     id: number, 
     name: string, 
     node: string, 
-    type: keyof BlockType, 
+    value: string,
+    type: BlockType, 
     props: Props,
     children: Block[]
   ) {
     this.id = id;
     this.name = name;
     this.node = node;
+    this.value = value;
     this.type = type;
     this.props = props;
     this.children = children;

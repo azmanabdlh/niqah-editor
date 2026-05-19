@@ -1,6 +1,6 @@
 import { BlockBlot } from "parchment";
 
-import { BlockProps } from "../block";
+import { BlockContext, SectionProps } from "../block";
 import { NodeConfigurator } from "./utils";
 
 export default class SectionBlot extends NodeConfigurator(BlockBlot) {
@@ -8,9 +8,9 @@ export default class SectionBlot extends NodeConfigurator(BlockBlot) {
 
   static tagName = 'section';
 
-  static create<T extends BlockProps>(props: T) {
+  static create(context: BlockContext<SectionProps>) {
     const node = super.create();
 
-    return this.mergeProps(node, props);
+    return this.mergeProps(node, context.props);
   }
 }

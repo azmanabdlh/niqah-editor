@@ -2,7 +2,7 @@ import { Registry, ScrollBlot } from "parchment";
 
 import ActionDispatcher from './action-dispatcher';
 import { ActionKind, ActionHandler } from './types';
-import Block from './block';
+import Block, { HeadingProps } from './block';
 import BlockComponent from './block-component';
 import Workspace, { Context } from './workspace';
 
@@ -15,6 +15,7 @@ interface WorkspaceAction {
   inspect(blockId: string): void;  
   setBlock(block: Block): void
 }
+
 
 export default class {
 
@@ -51,29 +52,42 @@ export default class {
       document.createElement('div'),
     );
 
+
     for(const blockComponent of blockComponents) {
-      // TODO:
-      // add indetifier
-      const sectionNode = document.createElement('section');
-      
-      for (const block of blockComponent.blocks) {
-        const node = document.createElement(block.node);
-        const blot = this._registry.create(root, node, block.props);
-        
-        sectionNode.appendChild(blot.domNode);
-      }
-
-
-      fragment.appendChild(sectionNode);
+      fragment.appendChild(
+        this.resolveBlocks(root, blockComponent.blocks)
+      );
     }
 
-    
-    // mount to target
     target.appendChild(fragment);
   }
+
 
   destory(): void {
     this._dispatch.removeAllListeners();
   }
 
+  private resolveBlocks(root: ScrollBlot, blocks: Block[]): Node {
+    const fragment = document.createDocumentFragment();
+
+    for (const block of blocks) {
+      const ctx = {
+        tagName: block.node,
+        value: block.value, 
+        props: block.props 
+      }
+
+      const blot = this._registry.create(root, block.name, ctx);
+
+      if (block.children.length > 0) {
+        blot.domNode.appendChild(
+          this.resolveBlocks(root, block.children)
+        );
+      }
+
+      fragment.appendChild(blot.domNode);
+    }
+
+    return fragment;
+  }
 }

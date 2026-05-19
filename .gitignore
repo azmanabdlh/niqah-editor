@@ -34,3 +34,5 @@ testbench.yaml
 /storage
 */.DS_Store
 .DS_Store
+
+/dist

@@ -1,4 +1,3 @@
-import { BlockType, AttributeSet } from './block';
 import BlockComponent from './block-component';
 
 
