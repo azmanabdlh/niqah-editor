@@ -27,18 +27,18 @@ export default class {
 
   private _registry: Registry;
 
-  private _root: Root;
+  private _scroll: Root;
 
-  constructor(id: string, title: string) {
+  constructor(ref: HTMLDivElement, id: string, title: string) {
     const ctx = { id, title, version: '1.0.0' } as Context;
 
     this._dispatch = new ActionDispatcher();
     this._workspace = new Workspace(this._dispatch, ctx);
     this._registry = new Registry();
 
-    this._root =  new ScrollBlot(
+    this._scroll =  new ScrollBlot(
       this._registry,
-      document.createElement('div'),
+      ref
     );
     
   }
@@ -60,7 +60,7 @@ export default class {
     }
 
     const blot = this._registry.create(
-      this._root,
+      this._scroll,
       block.node,
       ctx
     )

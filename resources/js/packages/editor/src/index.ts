@@ -15,6 +15,8 @@ function required(s: string): Boolean {
 
 
 interface Config {
+  ref: HTMLDivElement,
+
   id: string;
   title: string;
 }
@@ -25,13 +27,13 @@ function init(config: Config): Engine {
 
   if (!required(config.title)) throw new Error('"title" is required');
 
-  return (new Engine(config.id, config.title))
+  return (new Engine(config.ref, config.id, config.title))
           .adoptBlocks(
             ImageBlock,
             HeadingBlock,
             SectionBlock,
             ButtonBlock,
-          );            
+          );
 }
 
 

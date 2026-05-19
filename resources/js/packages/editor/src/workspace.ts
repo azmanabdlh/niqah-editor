@@ -59,20 +59,8 @@ export default class Workspace {
     return this._blockComponents;
   }
 
-  serialize(): void {
-    // this._onChange?.(context);
-  }
 
   setBlock(block: Block): void {
-    // if ( Object.keys(this._inspect).length == 0 ) throw new Error('invalid set block');
     
-    // const blockComponent = this.blockComponents().find(blockComponent => blockComponent.id == this._inspect.containerId);
-    // if (!blockComponent) throw new Error('invalid "containerId"');
-
-    // blockComponent.blocks.map(currBlock =>{
-    //   if (currBlock.id === this._inspect.blockId) return block
-
-    //   return currBlock;
-    // })
   }
 }
