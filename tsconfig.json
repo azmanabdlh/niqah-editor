@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "moduleResolution": "Bundler",
+    "rootDir": "./resources/js/packages/editor/",
+    "outDir": "./resources/js/packages/editor/dist" 
+  },
+  "include": [
+    "resources/js/packages/editor/src/**/*.ts"
+  ]
+}
