@@ -1,50 +1,36 @@
-interface BlockAttribute 
+export interface BlockProps
 {
   style: string;
   className: string;
   id: string;
 }
 
-interface ContainerAttribute extends BlockAttribute 
+export interface ContainerProps extends BlockProps
 {
 
 }
 
-interface TextAttribute extends BlockAttribute 
+export interface TextProps extends BlockProps
 {
 
 }
 
-
-
-type BlockTypeAttribute = {
-  __Container: ContainerAttribute; 
-  __Text: TextAttribute;
+export interface ImageProps extends BlockProps
+{
+  src: string;
+  alt: string;
 }
 
-export type BlockType = keyof BlockTypeAttribute
-
-export type AttributeSet = Partial<Record<keyof BlockType[keyof BlockType], string>>;
 
 
-
-
-interface BlockBehavior {
-  init?: (element?: HTMLElement) => void;  
-};
-
-
-export interface TextBehavior extends BlockBehavior {
-  onChange?: (newText: string) => void;
+type BlockTypeProps = {
+  __Container: ContainerProps; 
+  __Text: TextProps;
 }
 
-export type BlockBehaviorContext = {
-  __Text: TextBehavior;
-}
+export type BlockType = keyof BlockTypeProps
 
-export type BlockBehaviorKind = keyof BlockBehaviorContext;
-
-
+export type Props = Partial<Record<keyof BlockType[keyof BlockType], string>>;
 
 
 export default class Block {
@@ -52,7 +38,7 @@ export default class Block {
   name: string
   node: string;
   type: keyof BlockType;
-  attributes: AttributeSet;
+  props: Props;
   children: Block[];
 
   constructor(
@@ -60,14 +46,14 @@ export default class Block {
     name: string, 
     node: string, 
     type: keyof BlockType, 
-    attributes: AttributeSet,
+    props: Props,
     children: Block[]
   ) {
     this.id = id;
     this.name = name;
     this.node = node;
     this.type = type;
-    this.attributes = attributes;
+    this.props = props;
     this.children = children;
   }
 
