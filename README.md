@@ -67,7 +67,7 @@ Engine::editor('1.0.0', activeComponent: '[]')->toJSON();
 //                 "id": "none",
 //                 "node": "div",
 //                 "type": "__Container",
-//                 "attributes": [],
+//                 "props": [],
 //                 "children": []
 //             },
 //             "thumbnail": "example.com/hero.jpg"

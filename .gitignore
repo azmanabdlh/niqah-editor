@@ -34,3 +34,7 @@ testbench.yaml
 /storage
 */.DS_Store
 .DS_Store
+
+/dist
+/resources/js/packages/engine/dist
+/resources/js/packages/engine/src/example.ts

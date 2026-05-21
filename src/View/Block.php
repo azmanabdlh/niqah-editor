@@ -7,8 +7,9 @@ class Block
     public function __construct(
         public string $id,
         public string $node,
+        public string $value,
         public string $type,
-        public array $attributes = [],
+        public array $props = [],
         public array $children = [],
     ) {}
 
@@ -17,8 +18,9 @@ class Block
         return [
             'id' => $this->id ?: 'none',
             'node' => $this->node,
+            'value' => $this->value,
             'type' => $this->type,
-            'attributes' => $this->attributes ?: [],
+            'props' => $this->props ?: [],
             'children' => $this->children ?: [],
         ];
     }
@@ -42,8 +44,9 @@ class Block
         return new Block(
             $data['id'],
             $data['node'],
+            $data['value'],
             $data['type'],
-            $data['attributes'],
+            $data['props'],
             $data['children']
         );
     }

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+
+    /* Module */
+    "module": "ESNext",
+    "moduleResolution": "Node",
+
+    /* Paths */
+    "baseUrl": ".",
+
+    /* JavaScript Support */
+    "allowJs": false,
+
+    /* Emit */
+    "noEmit": true,
+    "sourceMap": true,
+
+    /* Interop */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Bundler Compatibility */
+    "isolatedModules": true,
+
+    /* JSX */
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "resources/js/packages/engine/src/**/*.ts",
+    "resources/js/packages/engine/src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "resources/js/engine/dist"
+  ]
+}
