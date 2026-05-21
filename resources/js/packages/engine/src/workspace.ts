@@ -14,55 +14,85 @@ export interface Context {
 }
 
 
+export type WorkspaceEventType =
+  | 'add'
+  | 'remove'
+  | 'change'
+  | 'inspect'
+  | 'clear';
+
+type ListenerFunc = (
+  event: WorkspaceEventType,
+  value: any
+) => void
+
 export default class Workspace {
 
-  private _context: Context;
-  
-  private  _engine: EngineListener;
+  private context: Context;
 
-  private  _blockComponents: BlockComponent[] = [];
+  private blockComponents: BlockComponent[] = [];
 
-  private _inspect: string;
+  private inspect: string = '';
+
+  private listeners = new Set<ListenerFunc>();
 
 
-  constructor(
-    engine: EngineListener,
-    context: Context
-  ) {    
-    this._context = context;
-    this._engine = engine;
+  constructor(context: Context) {    
+    this.context = context;
+
+  }
+
+
+  subscribe(fn: ListenerFunc) {
+    this.listeners.add(fn);
+
+    return () => {
+      this.listeners.delete(
+        fn,
+      );
+    }
+  }
+
+
+  private notify(
+    event: WorkspaceEventType,
+    value: any
+  ): void {
+    this.listeners.forEach(fn =>
+      fn(event, value),
+    );
   }
 
 
   createNode(blockComponent: BlockComponent): void {
     // TODO: Need to be sorted to the position
-    this.blockComponents().push(blockComponent);
+    this.data().push(blockComponent);
 
-    this._engine.onEvent('add', blockComponent);
+    this.notify('add', blockComponent);
   }
 
   removeNode(idx: number): void {
-    this.blockComponents().splice(idx, 1);
+    this.data().splice(idx, 1);
 
-    this._engine.onEvent('remove', idx);
+    this.notify('remove', idx);
   }
 
   setBlockNode(idx: number, block: Block): void {
-    let blockId = this.blockComponents()[idx].blocks.findIndex(block => block.id == this._inspect);
-    this.blockComponents()[idx].blocks[blockId] = block;
+    let blockId = this.data()[idx].blocks.findIndex(block => block.id == this.inspect);
+    this.data()[idx].blocks[blockId] = block;
 
-    this._engine.onEvent('change', idx);
+    this.notify('change', idx);
   }
   
   
-  inspect(idx: number, blockId: string): void {
-    this._inspect = blockId;
-    const block = this.blockComponents()[idx].blocks.find(block => block.id == blockId);
+  inspectNode(idx: number, blockId: string): void {
+    this.inspect = blockId;
+    const block = this.data()[idx].blocks.find(block => block.id == blockId);
     
-    this._engine.onEvent('inspect', block);
+    this.notify('inspect', block);
   }
 
-  blockComponents(): BlockComponent[] {
-    return this._blockComponents;
+  data(): BlockComponent[] {
+    return this.blockComponents;
   }
 }

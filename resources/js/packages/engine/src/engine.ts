@@ -10,7 +10,7 @@ export interface ActionNode {
   createNode(blockComponent: BlockComponent): void;
   removeNode(idx: number): void
   setBlockNode(idx: number, block: Block): void;
-  inspect(idx: number, blockId: string): void;
+  inspectNode(idx: number, blockId: string): void;
 }
 
 
@@ -24,18 +24,19 @@ export default class {
   constructor(id: string, title: string) {
     this._dispatch = new ActionDispatcher();
 
-    this._workspace = new Workspace(this, { id, title, version: '1.0.0', issuedAt: Date.now()});
+    this._workspace = new Workspace({ id, title, version: '1.0.0', issuedAt: Date.now()});
+
+    this._workspace.subscribe((action, value) => {
+      const event = 'block-component:' + action as (keyof DispatchContext);
+      
+      this._dispatch.emit(event, value);
+    })
+    
   }
 
 
   on<T extends ActionKind>(event: T, handler: ActionHandler<T>): void {
     this._dispatch.on(event, handler);
-  }
-
-  onEvent(event: string, value: any): void {
-    const eventName = 'block-component:' + event as (keyof DispatchContext);
-    
-    this._dispatch.emit(eventName, value);
   }
 
 

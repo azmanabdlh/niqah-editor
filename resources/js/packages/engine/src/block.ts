@@ -51,7 +51,7 @@ export default class Block {
   children: Block[];
 
   constructor(
-    id: number, 
+    id: string, 
     name: string, 
     node: string, 
     value: string,
