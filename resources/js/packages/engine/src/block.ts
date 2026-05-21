@@ -42,7 +42,7 @@ export type Props = Partial<Record<keyof BlockType[keyof BlockType], string>>;
 
 
 export default class Block {
-  id: number;
+  id: string;
   name: string
   node: string;
   type: BlockType;
